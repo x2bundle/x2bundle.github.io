@@ -147,10 +147,12 @@ function updatefaster(){
          var data2 = data + 43200;
        //  
         console.log("data", id); 
-	if(id >= 200e6){
+	if(stat <= 200e6){
 	   document.getElementById(id).textContent = (stat/1e6).toFixed(3); 
 	   }
+          
 	else{
+        
 		document.getElementById(id).textContent = 'Completed'; 
 						   }
           
