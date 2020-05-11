@@ -268,7 +268,7 @@ function mainloop() {
         document.getElementById("TotalPlayer").textContent = TotalPlayer;
      });
 	
-	 x222.isPlayer(currentAddr).call().then(result => {
+	 x22.isPlayer(currentAddr).call().then(result => {
            console.log("TotalPlayer", result);
            var player = result.toString();
            if(player == 'true'){
