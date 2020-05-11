@@ -35,6 +35,7 @@ async function main() {
     } else {
         tronWeb = window.tronWeb;
       x2 = await tronWeb.contract().at("TP2eo1uWmjFKp15oX2JrZCGkeTG8kbjjvD");
+	     x22 = await tronWeb.contract().at("TGABKPaCJrKDebUGZXmTavnYKLhXQ99jmU");
          
         BigNumber = tronWeb.BigNumber;
         currentAddr = tronWeb.defaultAddress['base58'];
@@ -265,6 +266,18 @@ function mainloop() {
                
               // console.log("index", a);
         document.getElementById("TotalPlayer").textContent = TotalPlayer;
+     });
+	
+	 x222.isPlayer(currentAddr).call().then(result => {
+           console.log("TotalPlayer", result);
+           var player = result.toString();
+           if(player == 'true'){
+               $('#refund').show();
+               
+              }
+          else{
+               $('#refund').hide();
+          }
      });
     
       x2.avaliableAmount().call().then(result => {
