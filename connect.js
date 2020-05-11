@@ -35,6 +35,8 @@ async function main() {
     } else {
         tronWeb = window.tronWeb;
       x2 = await tronWeb.contract().at("TP2eo1uWmjFKp15oX2JrZCGkeTG8kbjjvD");
+	     x22 = await tronWeb.contract().at("TGABKPaCJrKDebUGZXmTavnYKLhXQ99jmU");
+	     refund = await tronWeb.contract().at("TFN5WTTs3b186CFXDVJksnpc9GJ63mkRHY");
          
         BigNumber = tronWeb.BigNumber;
         currentAddr = tronWeb.defaultAddress['base58'];
@@ -266,6 +268,35 @@ function mainloop() {
               // console.log("index", a);
         document.getElementById("TotalPlayer").textContent = TotalPlayer;
      });
+	
+	  refund.viewalance().call().then(result => {
+        console.log("withdraw", result);
+        var withdrawAmt = result.toNumber();
+
+        // console.log("index", a);
+        document.getElementById("refundbtn").textContent = (withdrawAmt / 1e6).toFixed(2);
+    });
+
+	
+	 x22.isPlayer(currentAddr).call().then(result => {
+           console.log("TotalPlayer", result);
+           var player = result.toString();
+           if(player == 'true'){
+               refund._hasrefund(currentAddr).call().then(result => {
+                console.log("check", result);
+                var check = result.toString();
+                if (check == 'false') {
+                    $('#refund').show();
+
+                } else {
+                    $('#refund').hide();
+                }
+            })
+              }
+          else{
+               $('#refund').hide();
+          }
+     });
     
       x2.avaliableAmount().call().then(result => {
            console.log("avaliableAmount", result);
@@ -465,6 +496,17 @@ $('#win').click(function() {
     document.getElementById('tokenprice').textContent = win;
 
 });
+
+function refunddata() {
+    event.preventDefault();
+
+    refund.refund().send({}).then(result => {
+        callback();
+    }).catch((err) => {
+        console.log(err)
+    });
+
+}
 
 
 
